@@ -11,11 +11,12 @@ public class MenuModal extends MenuContainer {
     }
 
     @FindBy(xpath = "//*[contains(@class, 'fa-sign-out-alt')]")
-    WebElement signOutLink;
+    private WebElement signOutLink;
 
 
-    public LoginPage clickOnSignOutLink(){
+    public LoginPage clickOnSignOutLink() {
         signOutLink.click();
         return new LoginPage(driver);
     }
+
 }

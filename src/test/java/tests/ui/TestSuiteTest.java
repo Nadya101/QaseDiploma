@@ -7,16 +7,14 @@ public class TestSuiteTest extends BaseTest {
 
     @Test
     public void deleteTestSuite() {
-        String suiteName = "DemoPipeline";
-        loginPage.openLoginPage()
-                .login(email, password)
-                .clickOnButtonLogin()
-                .openProject("Five project")
-                .deleteSuite(suiteName)
-                .clickOnDeleteSuiteButton()
-                .clickOnConfirmDeleteSuiteButton()
-                .refreshPage();
-        Assert.assertFalse(projectPage.isSuitePresent(suiteName));
-
+     suiteSteps.deleteSuite(email, password, "ComeMai", "TestSuite");
+        Assert.assertFalse(projectPage.isSuitePresent("SouceDemo"));
     }
+
+    @Test
+    public void updateTestSuite() {
+        suiteSteps.updateSuite(email, password, "ComeMai", "Smoke", " test", "New suite name 'Smoke test'");
+        Assert.assertEquals(projectPage.getMessage(), "Suite was successfully edited.");
+    }
+
 }

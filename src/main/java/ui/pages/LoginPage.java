@@ -1,5 +1,6 @@
 package ui.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,41 +12,40 @@ public class LoginPage extends BasePage {
     }
 
     @FindBy(id = "inputEmail")
-    WebElement emailInput;
+    private WebElement emailInput;
     @FindBy(id = "inputPassword")
-    WebElement passwordInput;
+    private WebElement passwordInput;
     @FindBy(xpath = "//*[@class = 'custom-control-indicator']")
-    WebElement rememberMeCheckBox;
+    private WebElement rememberMeCheckBox;
     @FindBy(id = "btnLogin")
-    WebElement loginButton;
+    private WebElement loginButton;
     @FindBy(xpath = "//*[@class = 'form-control-feedback']")
-    WebElement errorMessage;
+    private WebElement errorMessage;
+
+
 
     public LoginPage openLoginPage() {
         openPage(LOGIN_URL);
         return this;
     }
 
-    public LoginPage login(String email, String password) {
+    @Step("Login as username: '{email}' and password: '{password}'")
+    public ProjectsPage login(String email, String password) {
         emailInput.sendKeys(email);
         passwordInput.sendKeys(password);
         rememberMeCheckBox.click();
-        return this;
-    }
-
-    public ProjectsPage clickOnButtonLogin() {
-        loginButton.click();
+        clickOnButtonLogin();
         return new ProjectsPage(driver);
     }
 
-    public String getErrorMessage(){
-        return errorMessage.getText();
+
+    @Step("Click 'Login' button on Login page")
+    public void clickOnButtonLogin() {
+        loginButton.click();
     }
 
-    //HTML5 standard and error message not exist in DOM
-    public boolean hasAttributeRequiredAndErrorMessageAppears(){
-       emailInput.getAttribute("required");
-       return true;
+    public String getErrorMessage() {
+        return errorMessage.getText();
     }
 
 }

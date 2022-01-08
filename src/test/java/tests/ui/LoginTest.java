@@ -10,7 +10,6 @@ public class LoginTest extends BaseTest implements IConstants {
     public void loginUserWithValidDataTest() {
         String url = loginPage.openLoginPage()
                 .login(email, password)
-                .clickOnButtonLogin()
                 .getUrl();
         Assert.assertEquals(url, "https://app.qase.io/projects");
     }
@@ -18,18 +17,17 @@ public class LoginTest extends BaseTest implements IConstants {
     @Test
     public void loginUserWithInvalidDataTest() {
         loginPage.openLoginPage()
-                .login("none@yandex.by", "Q111111475zxcv")
-                .clickOnButtonLogin();
+                .login("none@yandex.by", "Q111111475zxcv");
         Assert.assertEquals(loginPage.getErrorMessage(), "These credentials do not match our records.");
     }
 
 
     @Test
     public void loginUserWithEmptyFieldsTest() {
-        loginPage.openLoginPage()
+        String url = loginPage.openLoginPage()
                 .login("", "")
-                .clickOnButtonLogin();
-        Assert.assertTrue(loginPage.hasAttributeRequiredAndErrorMessageAppears());
+                .getUrl();
+        Assert.assertEquals(url, "https://app.qase.io/login");
     }
 
 }

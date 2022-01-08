@@ -8,8 +8,7 @@ public class SignOutTest extends BaseTest {
     @Test
     public void signOutUserTest() {
         loginPage.openLoginPage()
-                .login(email, password)
-                .clickOnButtonLogin();
+                .login(email, password);
         String url = menuModal.openMenu()
                 .clickOnSignOutLink()
                 .getUrl();

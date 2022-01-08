@@ -6,22 +6,15 @@ import org.testng.annotations.Test;
 public class SearchTest extends BaseTest {
 
     @Test
-    public void findExistingProjectByNameTest() {
-        loginPage.openLoginPage()
-                .login(email, password)
-                .clickOnButtonLogin()
-                .searchProjectByName("Demo Project");
-        Assert.assertTrue(projectsPage.isProjectPresent("Demo Project"));
+    public void searchExistingProjectByNameTest() {
+        projectSteps.searchProject(email, password, "ComeMai");
+        Assert.assertTrue(projectsPage.isProjectPresent("ComeMai"));
     }
-
 
     @Test
-    public void findNonExistingProjectByNameTest() {
-        loginPage.openLoginPage()
-                .login(email, password)
-                .clickOnButtonLogin()
-                .searchProjectByName("$$$$$$");
-        //assert: message abt not found shows
-        Assert.assertFalse(projectsPage.isProjectPresent("$$$$$$"));
+    public void searchNonExistingProjectByNameTest() {
+        projectSteps.searchProject(email, password, "$$$$$$");
+        Assert.assertEquals(projectsPage.getNoSuchProjectMessage(),"Looks like you don’t have any projects yet.");
     }
+
 }

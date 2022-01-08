@@ -3,9 +3,5 @@ package ui.constants;
 public interface IConstants {
     String BASE_URL = "https://app.qase.io";
     String LOGIN_URL = BASE_URL + "/login";
-    String PROJECTS_URL = BASE_URL + "/projects";
     String CREATE_PROJECT_URL = BASE_URL+ "/project/create";
-
-
-
 }

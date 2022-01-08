@@ -1,5 +1,6 @@
 package ui.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,14 +8,16 @@ import org.openqa.selenium.support.FindBy;
 public class DeleteProjectPage extends BasePage {
 
     @FindBy(xpath = "//*[@class='btn btn-cancel']")
-    WebElement confirmDeleteButton;
+    private WebElement confirmDeleteButton;
 
-    public DeleteProjectPage (WebDriver driver) {
+    public DeleteProjectPage(WebDriver driver) {
         super(driver);
     }
 
-    public ProjectsPage confirmDeleteProject(){
+    @Step("Click on 'Delete project' button on Delete project page" )
+    public ProjectsPage confirmDeleteProject() {
         confirmDeleteButton.click();
-       return new ProjectsPage(driver);
+        return new ProjectsPage(driver);
     }
+
 }

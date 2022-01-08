@@ -3,30 +3,18 @@ package tests.ui;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class ProjectTest extends BaseTest{
+public class ProjectTest extends BaseTest {
 
     @Test
-    public void createNewProjectTest(){
-        loginPage.openLoginPage()
-                .login(email, password)
-                .clickOnButtonLogin();
-        String projectName = "Five project";
-        newProjectPage.openNewProjectPage()
-                .createNewProject(projectName, newProjectPage.createRandomProjectCode(), "This is auto project")
-                .makePublicProject(false)
-                .clickOnCreateProjectButton();
-        Assert.assertEquals(projectsPage.getProjectCreatedMessage(), "Project \""+ projectName +"\" was created successfully!");
+    public void createNewProjectTest() {
+        projectSteps.createNewProject(email, password, "TMS", "This is auto project", false);
+        Assert.assertEquals(projectPage.getMessage(), "Project \"TMS\" was created successfully!");
     }
 
     @Test
-    public void deleteProject(){
-        String projectName = "Forth3 project";
-        loginPage.openLoginPage()
-                .login(email, password)
-                .clickOnButtonLogin()
-                .deleteProjectByName(projectName)
-                .confirmDeleteProject();
-        Assert.assertFalse(projectsPage.isProjectPresent(projectName));
+    public void deleteProject() {
+     projectSteps.deleteProject(email, password,"TMS" );
+     Assert.assertFalse(projectsPage.isProjectPresent("TMS"));
     }
 
 }

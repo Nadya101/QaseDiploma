@@ -10,10 +10,11 @@ public class MenuContainer extends BasePage {
     }
 
     @FindBy(id = "user-menu")
-    WebElement userMenu;
+    private WebElement userMenu;
 
     public MenuModal openMenu() {
         userMenu.click();
         return new MenuModal(driver);
     }
+
 }

@@ -1,60 +1,61 @@
 package ui.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
 import java.util.Random;
 
 public class NewProjectPage extends MenuContainer {
-    Select select;
 
     public NewProjectPage(WebDriver driver) {
         super(driver);
     }
 
     @FindBy(id = "inputTitle")
-    WebElement titleInput;
+    private WebElement titleInput;
     @FindBy(id = "inputCode")
-    WebElement projectCodeInput;
+    private WebElement projectCodeInput;
     @FindBy(id = "inputDescription")
-    WebElement descriptionInput;
+    private WebElement descriptionInput;
     @FindBy(id = "public-access-type")
-    WebElement publicAccessRadioButton;
+    private WebElement publicAccessRadioButton;
     @FindBy(id = "private-access-type")
-    WebElement privateAccessRadioButton;
+    private WebElement privateAccessRadioButton;
     @FindBy(xpath = "//*[contains(text(), 'Create project')]")
-    WebElement createProjectButton;
+    private WebElement createProjectButton;
 
     public NewProjectPage openNewProjectPage() {
         openPage(CREATE_PROJECT_URL);
         return this;
     }
 
-    public String createRandomProjectCode() {
+    @Step("Generate random project code ")
+    public String generateRandomProjectCode() {
         Random random = new Random();
         return String.format("%4d", random.nextInt(10000));
     }
 
-    public NewProjectPage createNewProject(String projectName, String projectCode, String description) {
-        titleInput.sendKeys(projectName);
-        projectCodeInput.sendKeys(projectCode);
+    @Step("Set project name: '{name}' and description: '{description}'")
+    public NewProjectPage createNewProject(String name, String description) {
+        titleInput.sendKeys(name);
+        projectCodeInput.sendKeys(generateRandomProjectCode());
         descriptionInput.sendKeys(description);
         return this;
     }
 
-    public NewProjectPage makePublicProject(boolean isPublicProject) {
+    @Step("Make project public - '{isPublicProject}'")
+    public NewProjectPage makePublicOrPrivateProject(boolean isPublicProject) {
         if (isPublicProject) {
             publicAccessRadioButton.isSelected();
-            System.out.println("select public");
         } else {
             privateAccessRadioButton.isSelected();
-            System.out.println("select private");
         }
         return this;
     }
 
+    @Step("Click on 'Create project' button on New project page")
     public ProjectsPage clickOnCreateProjectButton() {
         createProjectButton.click();
         return new ProjectsPage(driver);
