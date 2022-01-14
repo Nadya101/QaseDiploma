@@ -2,39 +2,24 @@ package api.adapters;
 
 import com.google.gson.Gson;
 import io.restassured.response.Response;
-import utils.Property;
-
-import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
 
 public class BaseAdapter {
 
-    public final String token = "";
-    public final String contentType = "application/json";
     public final String BASE_URL = "https://api.qase.io/v1";
-    public final String SUITE_URL = "/suite/%s";
-    public final String SPECIFIC_TEST_SUITE = "/suite/%s/%d";
-    public final String CASE_URL = "/case/%s";
-    public final String SPECIFIC_TEST_CASE = "/case/%s/%d";
+    public final String TOKEN_KEY = "Token";
+    public final String TOKEN_VALUE = "382012c211a5f153453aea02c68b1cf561ad5ad4";
+    public final String CONTENT_TYPE_KEY = "Content-Type";
+    public final String CONTENT_TYPE_VALUE = "application/json";
 
     Gson converter = new Gson();
-
-    Property property;
-
-    {
-        try {
-            property = new Property();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public Response get(String url) {
         return
                 given()
-                        .header("Token", token)
-                        .header("Content-Type", contentType)
+                        .header(TOKEN_KEY, TOKEN_VALUE)
+                        .header(CONTENT_TYPE_KEY, CONTENT_TYPE_VALUE)
                 .when()
                         .get(BASE_URL + url)
                 .then()
@@ -45,8 +30,8 @@ public class BaseAdapter {
     public Response post(String url, String body) {
         return
                 given()
-                        .header("Token", token)
-                        .header("Content-Type", contentType)
+                        .header(TOKEN_KEY, TOKEN_VALUE)
+                        .header(CONTENT_TYPE_KEY, CONTENT_TYPE_VALUE)
                         .body(body)
                 .when()
                         .post(BASE_URL + url)

@@ -30,8 +30,18 @@ public class TestCaseApiTest {
 
     @Test
     public void getTestCaseById() {
-        Response response = new TestCaseAdapter().getTestById("FP9548", 35);
-        Assert.assertEquals(response.getStatusCode(), 200);
+        TestCase testCase = TestCase.builder()
+                .title("CAMERA")
+                .description("Case description")
+                .build();
+        Response responsePost = new TestCaseAdapter().createTestCase("FP9548", testCase);
+        Integer id  = responsePost.path("result.id");
+        Assert.assertEquals(responsePost.getStatusCode(), 200);
+
+        Response responseGet = new TestCaseAdapter().getTestById("FP9548", id);
+        Assert.assertEquals(responseGet.getStatusCode(), 200);
+        Assert.assertEquals(responseGet.path("result.title"), "CAMERA");
+        Assert.assertEquals(responseGet.path("result.description"), "Case description");
     }
 
 }
