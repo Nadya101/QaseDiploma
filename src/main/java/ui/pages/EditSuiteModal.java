@@ -24,7 +24,7 @@ public class EditSuiteModal extends BasePage {
         return this;
     }
 
-    @Step("Add suite description")
+    @Step("Add suite description: '{text}'")
     public EditSuiteModal addSuiteDescription(String text) {
         descriptionInput.sendKeys(text);
         return this;

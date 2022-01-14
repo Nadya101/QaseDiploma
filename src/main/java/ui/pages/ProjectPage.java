@@ -12,6 +12,14 @@ import static utils.Waiters.waitForElementLocated;
 
 public class ProjectPage extends BasePage {
 
+    public final String TEST_CASE_NAME_XPATH = "//*[contains(@class, 'style_caseTitle')][contains(text(),'%s')]";
+    public final String TRASH_ICON_XPATH = "//*[contains(text(), '%s')]/ancestor::*[contains(@class, " +
+            "'style_header')]//*[contains(@class, 'trash')]";
+    public final String SUITE_TITLE_XPATH = "//*[@title='%s']";
+    public final String PENCIL_ICON_XPATH = "//*[contains(text(), '%s')]/ancestor::*[contains(@class," +
+            " 'style_header')]//*[contains(@class, 'pencil')]";
+
+
     @FindBy(id = "create-case-button")
     private WebElement createCaseButton;
     @FindBy(xpath = "//*[contains(text(), 'Delete')]")
@@ -37,8 +45,8 @@ public class ProjectPage extends BasePage {
 
     @Step("Select '{caseName}' test case")
     public ProjectPage selectTestCaseByName(String caseName) {
-        waitForElementLocated(driver, By.xpath(String.format("//*[contains(@class, 'style_caseTitle')][contains(text(),'%s')]", caseName)), 5);
-        driver.findElement(By.xpath(String.format("//*[contains(@class, 'style_caseTitle')][contains(text(),'%s')]", caseName))).click();
+        waitForElementLocated(driver, By.xpath(String.format(TEST_CASE_NAME_XPATH, caseName)), 5);
+        driver.findElement(By.xpath(String.format(TEST_CASE_NAME_XPATH, caseName))).click();
         return this;
     }
 
@@ -62,10 +70,8 @@ public class ProjectPage extends BasePage {
 
     @Step("Click on trash icon on Project page")
     public ProjectPage clickOnTrashIcon(String suiteName) {
-        waitForElementLocated(driver,By.xpath(String.format("//*[contains(text(), '%s')]/ancestor::*[contains(@class, " +
-                "'style_header')]//*[contains(@class, 'trash')]", suiteName)), 5 );
-        driver.findElement(By.xpath(String.format("//*[contains(text(), '%s')]/ancestor::*[contains(@class, " +
-                "'style_header')]//*[contains(@class, 'trash')]", suiteName))).click();
+        waitForElementLocated(driver,By.xpath(String.format(TRASH_ICON_XPATH, suiteName)), 5 );
+        driver.findElement(By.xpath(String.format(TRASH_ICON_XPATH, suiteName))).click();
         return this;
     }
 
@@ -76,14 +82,13 @@ public class ProjectPage extends BasePage {
     }
 
     public boolean isSuitePresent(String suiteName) {
-        List<WebElement> suiteTitle = driver.findElements(By.xpath(String.format("//*[@title='" + suiteName + "']", suiteName)));
+        List<WebElement> suiteTitle = driver.findElements(By.xpath(String.format(SUITE_TITLE_XPATH, suiteName)));
         return suiteTitle.size() > 0;
     }
 
     @Step("Click on edit(pencil) icon on Project page")
     public EditSuiteModal clickOnEditIcon(String suiteName) {
-        driver.findElement(By.xpath(String.format("//*[contains(text(), '%s')]/ancestor::*[contains(@class, 'style_header')]//*[contains(@class, 'pencil')]",
-                suiteName))).click();
+        driver.findElement(By.xpath(String.format(PENCIL_ICON_XPATH, suiteName))).click();
         return new EditSuiteModal(driver);
     }
 

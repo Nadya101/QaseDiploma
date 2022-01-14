@@ -18,6 +18,13 @@ public class ProjectsPage extends BasePage {
         super(driver);
     }
 
+    public final String PROJECT_MENU_XPATH = "//*[contains(text(), '%s')]/ancestor::tr[@class='project-row']" +
+            "//*[@class ='fa fa-ellipsis-h']";
+    public final String PROJECT_NAME_XPATH = "//*[contains(text(), '%s')]";
+    public final String TARGET_PROJECT_XPATH = "//*[@class='project-row']" +
+            "//*[contains(text(),'%s')]";
+
+
     @FindBy(id = "createButton")
     private WebElement createProjectButton;
     @FindBy(xpath = "//input[contains(@class, 'search-input')]")
@@ -43,8 +50,7 @@ public class ProjectsPage extends BasePage {
 
     @Step("Click on '{name}' project's menu on Projects page")
     public ProjectsPage openProjectMenu(String name) {
-        By menuDropDown = By.xpath(String.format("//*[contains(text(), '%s')]/ancestor::tr[@class='project-row']" +
-                "//*[@class ='fa fa-ellipsis-h']", name));
+        By menuDropDown = By.xpath(String.format(PROJECT_MENU_XPATH, name));
         waitForElementLocated(driver, menuDropDown, 3);
         driver.findElement(menuDropDown).click();
         return this;
@@ -56,20 +62,17 @@ public class ProjectsPage extends BasePage {
         return new DeleteProjectPage(driver);
     }
 
-
     @Step("Open '{name}' project")
     public ProjectPage openProject(String name) {
-        By projectTitle = By.xpath(String.format("//*[contains(text(), '%s')]", name));
+        By projectTitle = By.xpath(String.format(PROJECT_NAME_XPATH, name));
         waitForElementLocated(driver, projectTitle, 3);
         driver.findElement(projectTitle).click();
         return new ProjectPage(driver);
     }
 
     public boolean isProjectPresent(String name) {
-        waitForElementLocated(driver, By.xpath(String.format("//*[@class='project-row']" +
-                "//*[contains(text(),'%s')]", name)), 5);
-        List<WebElement> targetProject = driver.findElements(By.xpath(String.format("//*[@class='project-row']" +
-                "//*[contains(text(),'%s')]", name)));
+        waitForElementLocated(driver, By.xpath(String.format(TARGET_PROJECT_XPATH, name)), 5);
+        List<WebElement> targetProject = driver.findElements(By.xpath(String.format(TARGET_PROJECT_XPATH, name)));
         return !(targetProject.size() <= 0);
     }
 

@@ -23,7 +23,6 @@ public class LoginPage extends BasePage {
     private WebElement errorMessage;
 
 
-
     public LoginPage openLoginPage() {
         openPage(LOGIN_URL);
         return this;
