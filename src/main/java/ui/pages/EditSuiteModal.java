@@ -1,10 +1,12 @@
 package ui.pages;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+@Log4j2
 public class EditSuiteModal extends BasePage {
 
     @FindBy(xpath = "//*[contains(text(), 'Description')]/ancestor::*[@class='form-group']/input")
@@ -20,19 +22,22 @@ public class EditSuiteModal extends BasePage {
 
     @Step("Rename suite to '{name}'")
     public EditSuiteModal changeSuiteName(String name) {
+        log.info(String.format("Type text: '%s' into suite name input.", name));
         suiteNameInput.sendKeys(name);
         return this;
     }
 
     @Step("Add suite description: '{text}'")
-    public EditSuiteModal addSuiteDescription(String text) {
-        descriptionInput.sendKeys(text);
+    public EditSuiteModal addSuiteDescription(String description) {
+        log.info(String.format("Type text: '%s' into suite description input.", description));
+        descriptionInput.sendKeys(description);
         return this;
     }
 
     @Step("Click on 'Save' button on Edit suite page")
     public ProjectPage clickOnSaveButton() {
-       saveButton.click();
+        log.info("Click on 'Save' button.");
+        saveButton.click();
         return new ProjectPage(driver);
     }
 

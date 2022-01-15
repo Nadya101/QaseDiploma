@@ -1,19 +1,25 @@
 package api.adapters;
 
 import api.models.TestCase;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import lombok.extern.log4j.Log4j2;
 
-public class TestCaseAdapter extends BaseAdapter{
+@Log4j2
+public class TestCaseAdapter extends BaseAdapter {
 
     public final String CASE_URL = "/case/%s";
     public final String SPECIFIC_TEST_CASE = "/case/%s/%d";
 
-
-    public Response createTestCase(String projectCode, TestCase testCase){
+    @Step("Create a new Test case in '{projectCode}' project.")
+    public Response createTestCase(String projectCode, TestCase testCase) {
+        log.info(String.format("Create test case in project %s.", projectCode));
         return post(String.format(CASE_URL, projectCode), converter.toJson(testCase));
     }
 
-    public Response getTestById(String projectCode, int id){
+    @Step("Get test case from '{projectCode}' project by id = '{id}'")
+    public Response getTestById(String projectCode, int id) {
+        log.info(String.format("Get test case by id = '%d' from '%s' project.", id, projectCode));
         return new BaseAdapter().get(String.format(SPECIFIC_TEST_CASE, projectCode, id));
     }
 

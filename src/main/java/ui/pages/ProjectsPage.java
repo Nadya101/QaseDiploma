@@ -1,6 +1,7 @@
 package ui.pages;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,7 +12,7 @@ import java.util.List;
 
 import static utils.Waiters.waitForElementLocated;
 
-
+@Log4j2
 public class ProjectsPage extends BasePage {
 
     public ProjectsPage(WebDriver driver) {
@@ -44,7 +45,9 @@ public class ProjectsPage extends BasePage {
     public ProjectsPage searchProjectByName(String projectName) {
         waitForElementLocated(driver, searchInput, 4);
         searchInput.clear();
+        log.info(String.format("Type text: '%s' into search box.", projectName));
         searchInput.sendKeys(projectName);
+        log.info("Click on 'Search input'.");
         searchInput.click();
         return this;
     }
@@ -53,12 +56,14 @@ public class ProjectsPage extends BasePage {
     public ProjectsPage openProjectMenu(String name) {
         By menuDropDown = By.xpath(String.format(PROJECT_MENU_XPATH, name));
         waitForElementLocated(driver, menuDropDown, 3);
+        log.info(String.format("Click on '%s' project's menu dropdown.", name));
         driver.findElement(menuDropDown).click();
         return this;
     }
 
     @Step("Click 'Delete' button on Projects page")
     public DeleteProjectPage clickOnDeleteProjectButton() {
+        log.info("Click on 'Delete' button.");
         deleteProjectButton.click();
         return new DeleteProjectPage(driver);
     }
@@ -67,12 +72,14 @@ public class ProjectsPage extends BasePage {
     public ProjectPage openProject(String name) {
         By projectTitle = By.xpath(String.format(PROJECT_NAME_XPATH, name));
         waitForElementLocated(driver, projectTitle, 3);
+        log.info(String.format("Click on '%s' project.", name));
         driver.findElement(projectTitle).click();
         return new ProjectPage(driver);
     }
 
     public boolean isProjectPresent(String name) {
       waitForElementLocated(driver, By.xpath(DEMO_PROJECT_XPATH), 5);
+      log.info(String.format("Find a list of '%s' projects.", name));
         List<WebElement> targetProject = driver.findElements(By.xpath(String.format(TARGET_PROJECT_XPATH, name)));
         return !(targetProject.size() <= 0);
     }

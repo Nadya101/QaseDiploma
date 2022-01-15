@@ -1,12 +1,13 @@
 package ui.pages;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.Waiters;
 
-
+@Log4j2
 public class CreateTestCasePage extends BasePage {
 
     @FindBy(id = "title")
@@ -59,7 +60,9 @@ public class CreateTestCasePage extends BasePage {
     @Step("Set title '{title}' to case")
     public CreateTestCasePage setTitle(String title) {
         Waiters.waitForElementLocated(driver, titleInput, 3);
+        log.info("Clear input field.");
         titleInput.clear();
+        log.info(String.format("Type text: '%s' into title input.", title));
         titleInput.sendKeys(title);
         return this;
     }
@@ -67,6 +70,7 @@ public class CreateTestCasePage extends BasePage {
     @Step("Click on 'Save' button on Create test case page")
     public ProjectPage clickOnSaveButton() {
         Waiters.waitForElementLocated(driver, saveButton, 3);
+        log.info("Click on 'Save' button");
         saveButton.click();
         return new ProjectPage(driver);
     }
