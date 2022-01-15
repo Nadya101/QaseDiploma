@@ -29,7 +29,7 @@ public class TestCaseApiTest {
     }
 
     @Test
-    public void getTestCaseById() {
+    public void getTestCaseByIdTest() {
         TestCase testCase = TestCase.builder()
                 .title("CAMERA")
                 .description("Case description")

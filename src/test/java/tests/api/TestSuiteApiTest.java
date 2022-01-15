@@ -21,7 +21,7 @@ public class TestSuiteApiTest {
     }
 
     @Test
-    public void getSmokeTestSuiteById() {
+    public void getSmokeTestSuiteByIdTest() {
         TestSuite testSuite = TestSuite.builder()
                 .title("Smoke test")
                 .description("Test suite description.")

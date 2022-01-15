@@ -21,6 +21,7 @@ public class ProjectsPage extends BasePage {
     public final String PROJECT_MENU_XPATH = "//*[contains(text(), '%s')]/ancestor::tr[@class='project-row']" +
             "//*[@class ='fa fa-ellipsis-h']";
     public final String PROJECT_NAME_XPATH = "//*[contains(text(), '%s')]";
+    public final String DEMO_PROJECT_XPATH = "//*[contains(text(), 'Demo Project')]/ancestor::tr[@class='project-row']//*[@class ='fa fa-ellipsis-h']";
     public final String TARGET_PROJECT_XPATH = "//*[@class='project-row']" +
             "//*[contains(text(),'%s')]";
 
@@ -71,7 +72,7 @@ public class ProjectsPage extends BasePage {
     }
 
     public boolean isProjectPresent(String name) {
-        waitForElementLocated(driver, By.xpath(String.format(TARGET_PROJECT_XPATH, name)), 5);
+      waitForElementLocated(driver, By.xpath(DEMO_PROJECT_XPATH), 5);
         List<WebElement> targetProject = driver.findElements(By.xpath(String.format(TARGET_PROJECT_XPATH, name)));
         return !(targetProject.size() <= 0);
     }

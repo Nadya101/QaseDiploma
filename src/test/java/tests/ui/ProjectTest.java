@@ -12,7 +12,7 @@ public class ProjectTest extends BaseTest {
     }
 
     @Test
-    public void deleteProject() {
+    public void deleteProjectTest() {
      projectSteps.deleteProject(email, password,"TMS" );
      Assert.assertFalse(projectsPage.isProjectPresent("TMS"));
     }

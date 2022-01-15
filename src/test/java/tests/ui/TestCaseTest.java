@@ -12,7 +12,7 @@ public class TestCaseTest extends BaseTest {
     }
 
     @Test
-    public void deleteTestCase() {
+    public void deleteTestCaseTest() {
         testCaseSteps.deleteTestCase(email, password, "ComeMai", "Demo test case");
         Assert.assertEquals(projectPage.getMessage(), "Test case [" + testCaseSteps.printCode() + "] was successfully deleted");
     }
