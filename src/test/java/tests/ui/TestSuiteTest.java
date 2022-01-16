@@ -9,14 +9,14 @@ import org.testng.annotations.Test;
 public class TestSuiteTest extends BaseTest {
 
     @Description("Test checks if the user can delete a test suite")
-    @Test(description = "Delete test suite", groups = {"test suite"})
+    @Test(description = "Delete test suite", groups = {"smoke"})
     public void deleteTestSuiteTest() {
      suiteSteps.deleteSuite(email, password, "ComeMai", "TestSuite");
         Assert.assertFalse(projectPage.isSuitePresent("SouceDemo"));
     }
 
     @Description("Test checks if the user can update a test suite")
-    @Test(description = "Update test suite", groups = {"test suite"})
+    @Test(description = "Update test suite", groups = {"smoke"})
     public void updateTestSuiteTest() {
         suiteSteps.updateSuite(email, password, "ComeMai", "POST", " test", "New suite name 'Smoke test'");
         Assert.assertEquals(projectPage.getMessage(), "Suite was successfully edited.");

@@ -81,7 +81,9 @@ public class ProjectsPage extends BasePage {
       waitForElementLocated(driver, By.xpath(DEMO_PROJECT_XPATH), 5);
       log.info(String.format("Find a list of '%s' projects.", name));
         List<WebElement> targetProject = driver.findElements(By.xpath(String.format(TARGET_PROJECT_XPATH, name)));
-        return !(targetProject.size() <= 0);
+       boolean isPresent = !(targetProject.size() <= 0);
+       log.info(String.format("It is '%s' that project present.", isPresent));
+       return isPresent;
     }
 
     public String getNoSuchProjectMessage() {

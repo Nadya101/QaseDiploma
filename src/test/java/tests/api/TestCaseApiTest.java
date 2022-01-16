@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 public class TestCaseApiTest {
 
     @Description("Test checks if the user can create a new test case via API")
-    @Test(description = "Create a new test case", groups = {"API", "test case"})
+    @Test(description = "Create a new test case", groups = {"API", "smoke"})
     public void createTestCaseTest() {
         TestCase testCase = TestCase.builder()
                 .title("CAMERA")
@@ -33,7 +33,7 @@ public class TestCaseApiTest {
     }
 
     @Description("Checks if the user can get a test case by id via API")
-    @Test(description = "Get test case by id", groups = {"API", "test case"})
+    @Test(description = "Get test case by id", groups = {"API", "smoke"})
     public void getTestCaseByIdTest() {
         TestCase testCase = TestCase.builder()
                 .title("CAMERA")

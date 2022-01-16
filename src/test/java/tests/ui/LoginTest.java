@@ -13,7 +13,7 @@ public class LoginTest extends BaseTest implements IConstants {
 
     @Description("Test checks if the user can log in with valid data")
     @Severity(SeverityLevel.CRITICAL)
-    @Test(description = "Login user with valid data", groups = {"login"}, retryAnalyzer = Retry.class)
+    @Test(description = "Login user with valid data", groups = {"login", "smoke"}, retryAnalyzer = Retry.class)
     public void loginUserWithValidDataTest() {
         String url = loginPage.openLoginPage()
                 .login(email, password)
@@ -22,7 +22,7 @@ public class LoginTest extends BaseTest implements IConstants {
     }
 
     @Description("Test checks if the user cannot log in with invalid data")
-    @Test(description = "Login user with in valid data", groups = {"login"})
+    @Test(description = "Login user with in valid data", groups = {"login", "smoke"})
     public void loginUserWithInvalidDataTest() {
         loginPage.openLoginPage()
                 .login("none@yandex.by", "Q111111475zxcv");
@@ -30,7 +30,7 @@ public class LoginTest extends BaseTest implements IConstants {
     }
 
     @Description("Test checks if the user cannot log in by submitting a form with empty fields")
-    @Test(description = "Login user with in empty fields", groups = {"login"})
+    @Test(description = "Login user with in empty fields", groups = {"login", "smoke"})
     public void loginUserWithEmptyFieldsTest() {
         String url = loginPage.openLoginPage()
                 .login("", "")

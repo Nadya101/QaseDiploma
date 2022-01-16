@@ -11,7 +11,7 @@ public class TestCaseAdapter extends BaseAdapter {
     public final String CASE_URL = "/case/%s";
     public final String SPECIFIC_TEST_CASE = "/case/%s/%d";
 
-    @Step("Create a new Test case in '{projectCode}' project.")
+    @Step("Create a new Test case '{testCase}' in '{projectCode}' project.")
     public Response createTestCase(String projectCode, TestCase testCase) {
         log.info(String.format("Create test case in project %s.", projectCode));
         return post(String.format(CASE_URL, projectCode), converter.toJson(testCase));

@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class SignOutTest extends BaseTest {
 
     @Description("Test checks if the user can log out of the system")
-    @Test(description = "Sigh out user", groups = {"sign out"})
+    @Test(description = "Sigh out user", groups = {"smoke"})
     public void signOutUserTest() {
         loginPage.openLoginPage()
                 .login(email, password);

@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 public class TestSuiteApiTest {
 
     @Description("Test checks if the user can create a new test suite via API")
-    @Test(description = "Create new suite test", groups = {"API", "test suite"})
+    @Test(description = "Create new suite test", groups = {"API", "smoke"})
     public void createTestSuiteTest() {
         TestSuite testSuite = TestSuite.builder()
                 .title("Regression test")
@@ -23,7 +23,7 @@ public class TestSuiteApiTest {
     }
 
     @Description("Checks if the user can get a test suite by id via API")
-    @Test(description = "Get test suite by id", groups = {"API", "test suite"})
+    @Test(description = "Get test suite by id", groups = {"API", "smoke"})
     public void getTestSuiteByIdTest() {
         TestSuite testSuite = TestSuite.builder()
                 .title("Smoke test")

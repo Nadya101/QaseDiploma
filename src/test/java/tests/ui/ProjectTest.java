@@ -13,7 +13,7 @@ public class ProjectTest extends BaseTest {
 
     @Description("Test checks if the user can create a new project")
     @Severity(SeverityLevel.CRITICAL)
-    @Test(description = "Create new project", groups = {"project"}, retryAnalyzer = Retry.class)
+    @Test(description = "Create new project", groups = {"critical"}, retryAnalyzer = Retry.class)
     public void createNewProjectTest() {
         projectSteps.createNewProject(email, password, "TMS", "This is auto project", false);
         Assert.assertEquals(projectPage.getMessage(), "Project \"TMS\" was created successfully!");
@@ -21,7 +21,7 @@ public class ProjectTest extends BaseTest {
 
 
     @Description("Test checks if the user can delete a new project")
-    @Test(description = "Delete a project", groups = {"project"})
+    @Test(description = "Delete a project", groups = {"smoke"})
     public void deleteProjectTest() {
      projectSteps.deleteProject(email, password,"TMS" );
      Assert.assertFalse(projectsPage.isProjectPresent("TMS"));

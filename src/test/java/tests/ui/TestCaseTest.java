@@ -11,14 +11,14 @@ public class TestCaseTest extends BaseTest {
 
     @Description("Test checks if the user can create a new test case with required fields only")
     @Severity(SeverityLevel.CRITICAL)
-    @Test(description = "Create new test case", groups = {"test case"}, retryAnalyzer = Retry.class)
+    @Test(description = "Create new test case", groups = {"critical"}, retryAnalyzer = Retry.class)
     public void createNewTestCaseMandatoryFieldOnlyTest() {
         testCaseSteps.createTestCase(email, password, "ComeMai", "Demo test case");
         Assert.assertEquals(projectPage.getMessage(), "Test case was created successfully!");
     }
 
     @Description("Test checks if the user can delete a test case")
-    @Test(description = "Delete test case", groups = {"test case"})
+    @Test(description = "Delete test case", groups = {"smoke"})
     public void deleteTestCaseTest() {
         testCaseSteps.deleteTestCase(email, password, "ComeMai", "Demo test case");
         Assert.assertEquals(projectPage.getMessage(), "Test case [" + testCaseSteps.printCode() + "] was successfully deleted");
