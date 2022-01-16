@@ -2,13 +2,17 @@ package tests.api;
 
 import api.adapters.TestCaseAdapter;
 import api.models.TestCase;
+import io.qameta.allure.Description;
 import io.restassured.response.Response;
+import lombok.extern.log4j.Log4j;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+@Log4j
 public class TestCaseApiTest {
 
-    @Test
+    @Description("Test checks if the user can create a new test case via API")
+    @Test(description = "Create a new test case", groups = {"API", "smoke"})
     public void createTestCaseTest() {
         TestCase testCase = TestCase.builder()
                 .title("CAMERA")
@@ -28,7 +32,8 @@ public class TestCaseApiTest {
         Assert.assertEquals(response.getStatusCode(), 200);
     }
 
-    @Test
+    @Description("Checks if the user can get a test case by id via API")
+    @Test(description = "Get test case by id", groups = {"API", "smoke"})
     public void getTestCaseByIdTest() {
         TestCase testCase = TestCase.builder()
                 .title("CAMERA")

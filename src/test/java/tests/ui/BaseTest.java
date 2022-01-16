@@ -3,17 +3,21 @@ package tests.ui;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
+import tests.utils.TestListener;
 import ui.pages.*;
 import ui.steps.ProjectSteps;
 import ui.steps.SuiteSteps;
 import ui.steps.TestCaseSteps;
 
+@Listeners(TestListener.class)
 public class BaseTest {
     WebDriver driver;
-    String email = "angel.nadii36@gmail.com";
-    String password = "gQGdpPJ3AFZ*85Z";
+    String email = "";
+    String password = "";
 
     ProjectSteps projectSteps;
     SuiteSteps suiteSteps;
@@ -24,10 +28,12 @@ public class BaseTest {
     MenuModal menuModal;
 
     @BeforeMethod
-    public void initTest() {
+    public void initTest(ITestContext context) {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        String driverVariable = "driver";
+        context.setAttribute(driverVariable, driver);
         initPages();
     }
 
@@ -43,7 +49,9 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true)
     public void closeDriver() {
-        driver.quit();
+        if(driver != null) {
+            driver.quit();
+        }
     }
 
 }
