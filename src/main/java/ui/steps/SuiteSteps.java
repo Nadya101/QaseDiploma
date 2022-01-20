@@ -24,20 +24,20 @@ public class SuiteSteps{
                 .openProject(projectName)
                 .clickOnTrashIcon(suiteName)
                 .clickOnDeleteSuiteButton()
-                .clickOnConfirmDeleteSuiteButton()
                 .refreshPage();
         return this;
     }
 
-    public SuiteSteps updateSuite(String email, String password, String projectName, String suiteName, String newName, String description) {
+    public SuiteSteps updateSuite(String email, String password, String projectName, String suiteTitle, String newName, String description) {
         loginPage.openLoginPage()
                 .login(email, password)
                 .openProject(projectName)
-                .clickOnEditIcon(suiteName)
+                .clickOnEditSuiteIcon(suiteTitle)
                 .changeSuiteName(newName)
                 .addSuiteDescription(description)
                 .clickOnSaveButton();
         return this;
     }
+
 
 }

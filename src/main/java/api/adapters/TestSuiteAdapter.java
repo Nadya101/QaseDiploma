@@ -11,7 +11,7 @@ public class TestSuiteAdapter extends BaseAdapter {
     public final String SUITE_URL = "/suite/%s";
     public final String SPECIFIC_TEST_SUITE = "/suite/%s/%d";
 
-    @Step("Create a new suite case '{testSuite}' in '{projectCode}' project")
+    @Step("Create new suite case '{testSuite}' in '{projectCode}' project")
     public Response createSuite(String projectCode, TestSuite testSuite) {
         log.info(String.format("Create new test suite in '%s' project.", projectCode));
         return post(String.format(SUITE_URL, projectCode), converter.toJson(testSuite)).then().log().all().extract().response();
@@ -21,6 +21,12 @@ public class TestSuiteAdapter extends BaseAdapter {
     public Response getSuiteById(String projectCode, int id) {
         log.info(String.format("Get test suite with id = '%d' from '%s' project.", id, projectCode));
         return new BaseAdapter().get(String.format(SPECIFIC_TEST_SUITE, projectCode, id));
+    }
+
+    @Step("Delete suite case with id = '{id}' from '{projectCode}' project")
+    public Response deleteSuite(String projectCode, int id) {
+        log.info(String.format("Delete test suite with id = '%d' from '%s' project.", id, projectCode));
+        return delete(String.format(SPECIFIC_TEST_SUITE, projectCode, id));
     }
 
 }

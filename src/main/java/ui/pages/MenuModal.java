@@ -1,5 +1,6 @@
 package ui.pages;
 
+import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,8 +17,9 @@ public class MenuModal extends MenuContainer {
     private WebElement signOutLink;
 
 
+    @Step("Click on 'Sign out' button")
     public LoginPage clickOnSignOutLink() {
-        log.info("Click on 'Sign out' button");
+        log.info("Click on 'Sign out' button.");
         signOutLink.click();
         return new LoginPage(driver);
     }

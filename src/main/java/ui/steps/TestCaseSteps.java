@@ -2,6 +2,7 @@ package ui.steps;
 
 import org.openqa.selenium.WebDriver;
 import ui.pages.*;
+import utils.Waiters;
 
 public class TestCaseSteps {
     public static String caseCode = "";
@@ -14,6 +15,7 @@ public class TestCaseSteps {
     CreateTestCasePage createTestCasePage;
     ProjectPage projectPage;
     DeleteSuiteModal deleteSuiteModal;
+
 
     public TestCaseSteps(WebDriver driver) {
         loginPage = new LoginPage(driver);
@@ -37,16 +39,29 @@ public class TestCaseSteps {
     }
 
 
-    public TestCaseSteps deleteTestCase(String email, String password, String projectName, String caseName) {
+    public TestCaseSteps deleteTestCase(String email, String password, String projectName, String caseTitle) {
         caseCode = loginPage.openLoginPage()
                 .login(email, password)
                 .openProject(projectName)
-                .selectTestCaseByName(caseName)
+                .openCasesList()
+                .selectTestCaseByName(caseTitle)
                 .getCaseCode();
         projectPage.clickOnDeleteCaseButton()
                 .clickOnDeleteButton();
         return this;
     }
+
+    public TestCaseSteps updateTestCase(String email, String password, String projectName, String caseTitle, String newTitle) {
+        loginPage.openLoginPage()
+                .login(email, password)
+                .openProject(projectName)
+                .selectTestCaseByName(caseTitle)
+                .clickOnEditTestCaseButton()
+                .changeCaseTitle(newTitle)
+                .clickOnSaveButton();
+        return this;
+    }
+
 
     public String printCode() {
         return caseCode;
