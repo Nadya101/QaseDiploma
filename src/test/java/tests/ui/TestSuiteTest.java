@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import lombok.extern.log4j.Log4j2;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.PropertyReader;
 
 @Log4j2
 public class TestSuiteTest extends BaseTest {
@@ -24,7 +25,9 @@ public class TestSuiteTest extends BaseTest {
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(id > 0);
 
-        suiteSteps.deleteSuite(email, password, "TMS", "Create suite");
+        suiteSteps.deleteSuite(System.getProperty("EMAIL", PropertyReader.getProperty("EMAIL")),
+                               System.getProperty("PASSWORD", PropertyReader.getProperty("PASSWORD")),
+                "TMS", "Create suite");
         Assert.assertFalse(projectPage.isSuitePresent("Create suite"));
     }
 
@@ -42,7 +45,9 @@ public class TestSuiteTest extends BaseTest {
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(id > 0);
 
-        suiteSteps.updateSuite(email, password, "TMS", "Update", " suite", "New suite name 'Update suite'");
+        suiteSteps.updateSuite(System.getProperty("EMAIL", PropertyReader.getProperty("EMAIL")),
+                               System.getProperty("PASSWORD", PropertyReader.getProperty("PASSWORD")),
+                "TMS", "Update", " suite", "New suite name 'Update suite'");
         Assert.assertEquals(projectPage.getMessage(), "Suite was successfully edited.");
 
         Response responseDelete = new TestSuiteAdapter().deleteSuite("TMS3543", id);

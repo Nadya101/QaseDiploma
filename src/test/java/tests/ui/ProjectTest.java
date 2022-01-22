@@ -10,6 +10,7 @@ import lombok.extern.log4j.Log4j;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import tests.utils.Retry;
+import utils.PropertyReader;
 
 @Log4j
 public class ProjectTest extends BaseTest {
@@ -18,7 +19,9 @@ public class ProjectTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Create new project", groups = {"critical"}, retryAnalyzer = Retry.class)
     public void createNewProjectTest() {
-        projectSteps.createNewProject(email, password, "TMS", "This is auto project", false);
+        projectSteps.createNewProject(System.getProperty("EMAIL", PropertyReader.getProperty("EMAIL")),
+                                      System.getProperty("PASSWORD", PropertyReader.getProperty("PASSWORD")),
+                                "TMS", "This is auto project", false);
         Assert.assertEquals(projectPage.getMessage(), "Project \"TMS\" was created successfully!");
     }
 
@@ -34,7 +37,8 @@ public class ProjectTest extends BaseTest {
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(response.path("result.code"), "NB101");
 
-        projectSteps.deleteProject(email, password, "Qase project");
+        projectSteps.deleteProject(System.getProperty("EMAIL", PropertyReader.getProperty("EMAIL")),
+                System.getProperty("PASSWORD", PropertyReader.getProperty("PASSWORD")), "Qase project");
         Assert.assertFalse(projectsPage.isProjectPresent("Qase project"));
     }
 

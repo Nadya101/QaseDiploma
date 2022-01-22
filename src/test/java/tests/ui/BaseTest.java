@@ -10,6 +10,7 @@ import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
+import tests.utils.PropertyReader;
 import tests.utils.TestListener;
 import ui.pages.*;
 import ui.steps.ProjectSteps;
@@ -19,8 +20,6 @@ import ui.steps.TestCaseSteps;
 @Listeners(TestListener.class)
 public class BaseTest {
     WebDriver driver;
-    String email = "angel.nadii36@gmail.com";
-    String password = "gQGdpPJ3AFZ*85Z";
 
     ProjectSteps projectSteps;
     SuiteSteps suiteSteps;
@@ -32,9 +31,21 @@ public class BaseTest {
 
     @BeforeMethod
     public void initTest(ITestContext context) {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        if (System.getProperty("browser") != null) {
+            if (System.getProperty("browser").equals("chrome")) {
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver();
+            } else if (System.getProperty("browser").equals("edge")) {
+                WebDriverManager.edgedriver().setup();
+                driver = new EdgeDriver();
+            } else if (System.getProperty("browser").equals("firefox")) {
+                WebDriverManager.firefoxdriver().setup();
+                driver = new FirefoxDriver();
+            }
+        } else {
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+        }
         String driverVariable = "driver";
         context.setAttribute(driverVariable, driver);
         initPages();
@@ -52,7 +63,7 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true)
     public void closeDriver() {
-        if(driver != null) {
+        if (driver != null) {
             driver.quit();
         }
     }
