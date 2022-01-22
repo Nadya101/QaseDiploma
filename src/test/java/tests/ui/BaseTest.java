@@ -19,8 +19,8 @@ import ui.steps.TestCaseSteps;
 @Listeners(TestListener.class)
 public class BaseTest {
     WebDriver driver;
-    String email = "";
-    String password = "";
+    String email = "angel.nadii36@gmail.com";
+    String password = "gQGdpPJ3AFZ*85Z";
 
     ProjectSteps projectSteps;
     SuiteSteps suiteSteps;

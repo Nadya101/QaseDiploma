@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import static utils.Waiters.waitForElementLocated;
@@ -18,9 +19,7 @@ public class ProjectsPage extends BasePage {
     public final String PROJECT_MENU_XPATH = "//*[contains(text(), '%s')]/ancestor::tr[@class='project-row']" +
             "//*[@class ='fa fa-ellipsis-h']";
     public final String PROJECT_NAME_XPATH = "//*[contains(text(), '%s')]";
-    public final String COMEMAI_PROJECT_XPATH = "//*[contains(text(), 'ComeMai')]/ancestor::tr[@class='project-row']//*[@class ='fa fa-ellipsis-h']";
-    public final String TARGET_PROJECT_XPATH = "//*[@class='project-row']" +
-            "//*[contains(text(),'%s')]";
+    public final String TARGET_PROJECT_XPATH = "//*[@class='project-row']//*[contains(text(),'%s')]";
 
 
     @FindBy(id = "createButton")
@@ -35,6 +34,8 @@ public class ProjectsPage extends BasePage {
     private WebElement deleteProjectButton;
     @FindBy(xpath = "//*[@class='alert-message']")
     private WebElement projectCreatedMessage;
+    @FindBy (xpath = "//*[@class = 'add-filter-button']")
+    private WebElement addFilterButton;
 
     public ProjectsPage(WebDriver driver) {
         super(driver);
@@ -77,7 +78,7 @@ public class ProjectsPage extends BasePage {
     }
 
     public boolean isProjectPresent(String name) {
-        waitForElementLocated(driver, By.xpath(COMEMAI_PROJECT_XPATH), 5);
+        waitForElementLocated(driver, addFilterButton, 5);
         log.info(String.format("Find a list of '%s' projects.", name));
         List<WebElement> targetProject = driver.findElements(By.xpath(String.format(TARGET_PROJECT_XPATH, name)));
         boolean isPresent = (targetProject.size() > 0);
