@@ -10,6 +10,7 @@ pipeline {
     }
     parameters {
         gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', name: 'BRANCH', type: 'PT_BRANCH'
+//         booleanParam(defaultValue: true, description: 'Headless mode', name: 'HEADLESS')
     }
 
    stages {
@@ -22,7 +23,7 @@ pipeline {
 //             sh "mvn clean test"
 
             // To run Maven on a Windows agent, use
-            bat "mvn -Dmaven.test.failure.ignore=true -DEMAIL=${EMAIL} -DPASSWORD=${PASSWORD} clean package"
+            bat "mvn -Dmaven.test.failure.ignore=true -DEMAIL=${email} -DPASSWORD=${password} -DTOKEN=${token} clean package"
          }
 
          post {
