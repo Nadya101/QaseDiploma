@@ -3,6 +3,9 @@ package tests.ui;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -16,8 +19,8 @@ import ui.steps.TestCaseSteps;
 @Listeners(TestListener.class)
 public class BaseTest {
     WebDriver driver;
-    String email = "";
-    String password = "";
+    String email = "angel.nadii36@gmail.com";
+    String password = "gQGdpPJ3AFZ*85Z";
 
     ProjectSteps projectSteps;
     SuiteSteps suiteSteps;

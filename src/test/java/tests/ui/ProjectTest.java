@@ -1,8 +1,11 @@
 package tests.ui;
 
+import api.adapters.ProjectAdapter;
+import api.models.Project;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import io.restassured.response.Response;
 import lombok.extern.log4j.Log4j;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -19,12 +22,20 @@ public class ProjectTest extends BaseTest {
         Assert.assertEquals(projectPage.getMessage(), "Project \"TMS\" was created successfully!");
     }
 
-
     @Description("Test checks if the user can delete a new project")
     @Test(description = "Delete a project", groups = {"smoke"})
     public void deleteProjectTest() {
-     projectSteps.deleteProject(email, password,"TMS" );
-     Assert.assertFalse(projectsPage.isProjectPresent("TMS"));
+        Project project = Project.builder()
+                .title("Qase project")
+                .code("NB101")
+                .description("This is public project")
+                .build();
+        Response response = new ProjectAdapter().createProject(project);
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(response.path("result.code"), "NB101");
+
+        projectSteps.deleteProject(email, password, "Qase project");
+        Assert.assertFalse(projectsPage.isProjectPresent("Qase project"));
     }
 
 }
