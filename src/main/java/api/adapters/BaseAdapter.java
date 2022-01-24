@@ -3,16 +3,17 @@ package api.adapters;
 import com.google.gson.Gson;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import ui.constants.IConstants;
+import utils.PropertyReader;
 
 import static io.restassured.RestAssured.given;
 
-public class BaseAdapter {
+public class BaseAdapter implements IConstants {
 
-    public final String BASE_URL = "https://api.qase.io/v1";
-    public final String TOKEN_KEY = "Token";
-    public final String TOKEN_VALUE = "";
-    public final String CONTENT_TYPE_KEY = "Content-Type";
-    public final String CONTENT_TYPE_VALUE = "application/json";
+    private static final String TOKEN_KEY = "Token";
+    private static final String TOKEN_VALUE = System.getProperty("TOKEN", PropertyReader.getProperty("TOKEN"));
+    private static final String CONTENT_TYPE_KEY = "Content-Type";
+    private static final String CONTENT_TYPE_VALUE = "application/json";
 
     Gson converter = new Gson();
 
@@ -22,9 +23,9 @@ public class BaseAdapter {
                 given()
                         .header(TOKEN_KEY, TOKEN_VALUE)
                         .header(CONTENT_TYPE_KEY, CONTENT_TYPE_VALUE)
-                .when()
-                        .get(BASE_URL + url)
-                .then()
+                        .when()
+                        .get(BASE_API_URL + url)
+                        .then()
                         .log().all()
                         .extract().response();
     }
@@ -36,9 +37,9 @@ public class BaseAdapter {
                         .header(TOKEN_KEY, TOKEN_VALUE)
                         .header(CONTENT_TYPE_KEY, CONTENT_TYPE_VALUE)
                         .body(body)
-                .when()
-                        .post(BASE_URL + url)
-                .then()
+                        .when()
+                        .post(BASE_API_URL + url)
+                        .then()
                         .log().all()
                         .extract().response();
     }
@@ -49,9 +50,9 @@ public class BaseAdapter {
                 given()
                         .header(TOKEN_KEY, TOKEN_VALUE)
                         .header(CONTENT_TYPE_KEY, CONTENT_TYPE_VALUE)
-                 .when()
-                        .delete(BASE_URL + url)
-                .then()
+                        .when()
+                        .delete(BASE_API_URL + url)
+                        .then()
                         .log().all()
                         .extract().response();
     }

@@ -5,22 +5,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import tests.utils.TestListener;
+import ui.constants.IConstants;
 import ui.pages.*;
 import ui.steps.ProjectSteps;
 import ui.steps.SuiteSteps;
 import ui.steps.TestCaseSteps;
+import utils.PropertyReader;
 
 @Listeners(TestListener.class)
-public class BaseTest {
+public class BaseTest implements IConstants {
     WebDriver driver;
-    String email = "";
-    String password = "";
 
     ProjectSteps projectSteps;
     SuiteSteps suiteSteps;
@@ -30,14 +29,33 @@ public class BaseTest {
     ProjectPage projectPage;
     MenuModal menuModal;
 
+    protected static final String EMAIL = System.getProperty("EMAIL", PropertyReader.getProperty("EMAIL"));
+    protected static final String PASSWORD = System.getProperty("PASSWORD", PropertyReader.getProperty("PASSWORD"));
+
     @BeforeMethod
     public void initTest(ITestContext context) {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        initBrowser();
         String driverVariable = "driver";
         context.setAttribute(driverVariable, driver);
         initPages();
+    }
+
+    public void initBrowser() {
+        if (System.getProperty("browser") != null) {
+            if (System.getProperty("browser").equals("chrome")) {
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver();
+            } else if (System.getProperty("browser").equals("edge")) {
+                WebDriverManager.edgedriver().setup();
+                driver = new EdgeDriver();
+            } else if (System.getProperty("browser").equals("firefox")) {
+                WebDriverManager.firefoxdriver().setup();
+                driver = new FirefoxDriver();
+            }
+        } else {
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+        }
     }
 
     public void initPages() {
@@ -52,7 +70,7 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true)
     public void closeDriver() {
-        if(driver != null) {
+        if (driver != null) {
             driver.quit();
         }
     }

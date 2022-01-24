@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import static utils.Waiters.waitForElementLocated;
@@ -34,8 +33,12 @@ public class ProjectsPage extends BasePage {
     private WebElement deleteProjectButton;
     @FindBy(xpath = "//*[@class='alert-message']")
     private WebElement projectCreatedMessage;
-    @FindBy (xpath = "//*[@class = 'add-filter-button']")
+    @FindBy(xpath = "//*[@title= 'Not automated']")
+    private WebElement styleIcon;
+    @FindBy(xpath = "//*[@class = 'add-filter-button']")
     private WebElement addFilterButton;
+    @FindBy(xpath = "//*[@class = 'project-name']")
+    private WebElement projectNameIcon;
 
     public ProjectsPage(WebDriver driver) {
         super(driver);
@@ -51,6 +54,7 @@ public class ProjectsPage extends BasePage {
         searchInput.click();
         return this;
     }
+
 
     @Step("Click on '{name}' project's menu on Projects page")
     public ProjectsPage openProjectMenu(String name) {
@@ -78,11 +82,11 @@ public class ProjectsPage extends BasePage {
     }
 
     public boolean isProjectPresent(String name) {
-        waitForElementLocated(driver, addFilterButton, 5);
+        waitForElementLocated(driver, projectNameIcon, 5);
         log.info(String.format("Find a list of '%s' projects.", name));
         List<WebElement> targetProject = driver.findElements(By.xpath(String.format(TARGET_PROJECT_XPATH, name)));
-        boolean isPresent = (targetProject.size() > 0);
-        log.info(String.format("It is '%s' that project present.", isPresent));
+        boolean isPresent = targetProject.size() > 0;
+        log.info(String.format("It is %s that project '%s' is present.", isPresent, name));
         return isPresent;
     }
 

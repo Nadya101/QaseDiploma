@@ -24,8 +24,8 @@ public class TestSuiteTest extends BaseTest {
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(id > 0);
 
-        suiteSteps.deleteSuite(email, password, "TMS", "Create suite");
-        Assert.assertFalse(projectPage.isSuitePresent("Create suite"));
+        suiteSteps.deleteSuite(EMAIL, PASSWORD, "TMS", "Create suite");
+        Assert.assertEquals(projectPage.getMessage(), "Suite was successfully deleted.");
     }
 
 
@@ -42,7 +42,7 @@ public class TestSuiteTest extends BaseTest {
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(id > 0);
 
-        suiteSteps.updateSuite(email, password, "TMS", "Update", " suite", "New suite name 'Update suite'");
+        suiteSteps.updateSuite(EMAIL, PASSWORD, "TMS", "Update", " suite", "New suite name 'Update suite'");
         Assert.assertEquals(projectPage.getMessage(), "Suite was successfully edited.");
 
         Response responseDelete = new TestSuiteAdapter().deleteSuite("TMS3543", id);
