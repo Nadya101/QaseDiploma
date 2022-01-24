@@ -21,7 +21,7 @@ public class SearchTest extends BaseTest {
     public void searchNonExistingProjectByNameTest() {
         projectSteps.searchProject(System.getProperty("EMAIL", PropertyReader.getProperty("EMAIL")),
                 System.getProperty("PASSWORD", PropertyReader.getProperty("PASSWORD")), "$$$$$$");
-        Assert.assertEquals(projectsPage.getNoSuchProjectMessage(),"Looks like you don’t have any projects yet.");
+        Assert.assertEquals(projectsPage.getNoSuchProjectMessage(), "Looks like you don’t have any projects yet.");
     }
 
 }

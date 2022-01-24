@@ -20,6 +20,7 @@ public class ProjectPage extends BasePage {
     public final String SUITE_TITLE_XPATH = "//*[@title='%s']";
     public final String SUITE_PENCIL_ICON_XPATH = "//*[contains(text(), '%s')]/ancestor::*[contains(@class," +
             " 'style_header')]//*[contains(@class, 'pencil')]";
+    public final String HAND_ICON_XPATH ="//*[@title= 'Not automated']";
 
     @FindBy(id = "create-case-button")
     private WebElement createCaseButton;
@@ -35,7 +36,6 @@ public class ProjectPage extends BasePage {
     private WebElement casesList;
     @FindBy(xpath = "//*[@title='Edit case']")
     private WebElement editCaseButton;
-
 
     public ProjectPage(WebDriver driver) {
         super(driver);
@@ -59,6 +59,7 @@ public class ProjectPage extends BasePage {
 
     @Step("Select '{caseName}' test case")
     public ProjectPage selectTestCaseByName(String caseName) {
+        waitForElementLocated(driver, By.xpath(HAND_ICON_XPATH), 5 );
         log.info(String.format("Select '%s' test case", caseName));
         driver.findElement(By.xpath(String.format(TEST_CASE_NAME_XPATH, caseName))).click();
         return this;
