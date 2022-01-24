@@ -28,10 +28,4 @@ public class BasePage implements IConstants {
         return driver.getCurrentUrl();
     }
 
-    @Step("Refresh page")
-    public void refreshPage() {
-        log.info("Refresh page");
-        driver.navigate().refresh();
-    }
-
 }

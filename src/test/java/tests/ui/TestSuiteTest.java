@@ -28,7 +28,7 @@ public class TestSuiteTest extends BaseTest {
         suiteSteps.deleteSuite(System.getProperty("EMAIL", PropertyReader.getProperty("EMAIL")),
                                System.getProperty("PASSWORD", PropertyReader.getProperty("PASSWORD")),
                 "TMS", "Create suite");
-        Assert.assertFalse(projectPage.isSuitePresent("Create suite"));
+        Assert.assertEquals(projectPage.getMessage(), "Suite was successfully deleted.");
     }
 
 

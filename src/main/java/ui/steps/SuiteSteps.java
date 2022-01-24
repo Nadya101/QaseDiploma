@@ -23,8 +23,7 @@ public class SuiteSteps{
                 .login(email, password)
                 .openProject(projectName)
                 .clickOnTrashIcon(suiteName)
-                .clickOnDeleteSuiteButton()
-                .refreshPage();
+                .clickOnDeleteSuiteButton();
         return this;
     }
 

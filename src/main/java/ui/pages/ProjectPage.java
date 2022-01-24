@@ -7,8 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
-
 import static utils.Waiters.waitForElementLocated;
 
 @Log4j2
@@ -17,10 +15,9 @@ public class ProjectPage extends BasePage {
     public final String TEST_CASE_NAME_XPATH = "//*[contains(text(), '%s')]";
     public final String TRASH_ICON_XPATH = "//*[contains(text(), '%s')]/ancestor::*[contains(@class, " +
             "'style_header')]//*[contains(@class, 'trash')]";
-    public final String SUITE_TITLE_XPATH = "//*[@title='%s']";
     public final String SUITE_PENCIL_ICON_XPATH = "//*[contains(text(), '%s')]/ancestor::*[contains(@class," +
             " 'style_header')]//*[contains(@class, 'pencil')]";
-    public final String HAND_ICON_XPATH ="//*[@title= 'Not automated']";
+    public final String HAND_ICON_XPATH = "//*[@title= 'Not automated']";
 
     @FindBy(id = "create-case-button")
     private WebElement createCaseButton;
@@ -59,7 +56,7 @@ public class ProjectPage extends BasePage {
 
     @Step("Select '{caseName}' test case")
     public ProjectPage selectTestCaseByName(String caseName) {
-        waitForElementLocated(driver, By.xpath(HAND_ICON_XPATH), 5 );
+        waitForElementLocated(driver, By.xpath(HAND_ICON_XPATH), 5);
         log.info(String.format("Select '%s' test case", caseName));
         driver.findElement(By.xpath(String.format(TEST_CASE_NAME_XPATH, caseName))).click();
         return this;
@@ -93,13 +90,6 @@ public class ProjectPage extends BasePage {
         log.info("Click on 'Delete suite' button");
         deleteSuiteButton.click();
         return new DeleteSuiteModal(driver);
-    }
-
-    public boolean isSuitePresent(String suiteName) {
-        List<WebElement> suiteTitle = driver.findElements(By.xpath(String.format(SUITE_TITLE_XPATH, suiteName)));
-        boolean isSuitePresent = suiteTitle.size() > 0;
-        log.info(String.format("It is '%s' that suite case present.", isSuitePresent));
-        return isSuitePresent;
     }
 
     @Step("Click on edit (pencil) suite on Project page")
