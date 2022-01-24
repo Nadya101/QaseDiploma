@@ -10,6 +10,7 @@ import static io.restassured.RestAssured.given;
 
 public class BaseAdapter implements IConstants {
 
+    public final String API_URL = "https://api.qase.io/v1";
     private static final String TOKEN_KEY = "Token";
     private static final String TOKEN_VALUE = System.getProperty("TOKEN", PropertyReader.getProperty("TOKEN"));
     private static final String CONTENT_TYPE_KEY = "Content-Type";
@@ -24,13 +25,13 @@ public class BaseAdapter implements IConstants {
                         .header(TOKEN_KEY, TOKEN_VALUE)
                         .header(CONTENT_TYPE_KEY, CONTENT_TYPE_VALUE)
                         .when()
-                        .get(BASE_API_URL + url)
+                        .get(API_URL + url)
                         .then()
                         .log().all()
                         .extract().response();
     }
 
-    @Step("Send POST request to URL: '{url}'")
+    @Step("Send POST request with object '{body}' to URL: '{url}'")
     public Response post(String url, String body) {
         return
                 given()
@@ -38,7 +39,7 @@ public class BaseAdapter implements IConstants {
                         .header(CONTENT_TYPE_KEY, CONTENT_TYPE_VALUE)
                         .body(body)
                         .when()
-                        .post(BASE_API_URL + url)
+                        .post(API_URL + url)
                         .then()
                         .log().all()
                         .extract().response();
@@ -51,7 +52,7 @@ public class BaseAdapter implements IConstants {
                         .header(TOKEN_KEY, TOKEN_VALUE)
                         .header(CONTENT_TYPE_KEY, CONTENT_TYPE_VALUE)
                         .when()
-                        .delete(BASE_API_URL + url)
+                        .delete(API_URL + url)
                         .then()
                         .log().all()
                         .extract().response();

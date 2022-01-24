@@ -29,5 +29,4 @@ public class ProjectAdapter extends BaseAdapter {
 
     }
 
-
 }
