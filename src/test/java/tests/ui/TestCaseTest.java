@@ -44,7 +44,7 @@ public class TestCaseTest extends BaseTest {
     }
 
     @Description("Checks if the user can update a test case ")
-    @Test(description = "Create test case via API and update it via UI", groups = {"smoke"})//, retryAnalyzer = Retry.class)
+    @Test(description = "Create test case via API and update it via UI", groups = {"smoke"}, retryAnalyzer = Retry.class)
     public void updateTestCaseTest() {
         TestCase testCase = TestCase.builder()
                 .title("Update test")
