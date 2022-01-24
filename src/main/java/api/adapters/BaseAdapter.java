@@ -10,9 +10,10 @@ import static io.restassured.RestAssured.given;
 
 public class BaseAdapter implements IConstants {
 
-    public final String TOKEN_KEY = "Token";
-    public final String CONTENT_TYPE_KEY = "Content-Type";
-    public final String CONTENT_TYPE_VALUE = "application/json";
+    private static final String TOKEN_KEY = "Token";
+    private static final String TOKEN_VALUE = System.getProperty("TOKEN", PropertyReader.getProperty("TOKEN"));
+    private static final String CONTENT_TYPE_KEY = "Content-Type";
+    private static final String CONTENT_TYPE_VALUE = "application/json";
 
     Gson converter = new Gson();
 
@@ -21,11 +22,11 @@ public class BaseAdapter implements IConstants {
     public Response get(String url) {
         return
                 given()
-                        .header(TOKEN_KEY, System.getProperty("TOKEN", PropertyReader.getProperty("TOKEN")))
+                        .header(TOKEN_KEY, TOKEN_VALUE)
                         .header(CONTENT_TYPE_KEY, CONTENT_TYPE_VALUE)
-                .when()
+                        .when()
                         .get(BASE_API_URL + url)
-                .then()
+                        .then()
                         .log().all()
                         .extract().response();
     }
@@ -34,12 +35,12 @@ public class BaseAdapter implements IConstants {
     public Response post(String url, String body) {
         return
                 given()
-                        .header(TOKEN_KEY, System.getProperty("TOKEN", PropertyReader.getProperty("TOKEN")))
+                        .header(TOKEN_KEY, TOKEN_VALUE)
                         .header(CONTENT_TYPE_KEY, CONTENT_TYPE_VALUE)
                         .body(body)
-                .when()
+                        .when()
                         .post(BASE_API_URL + url)
-                .then()
+                        .then()
                         .log().all()
                         .extract().response();
     }
@@ -48,11 +49,11 @@ public class BaseAdapter implements IConstants {
     public Response delete(String url) {
         return
                 given()
-                        .header(TOKEN_KEY, System.getProperty("TOKEN", PropertyReader.getProperty("TOKEN")))
+                        .header(TOKEN_KEY, TOKEN_VALUE)
                         .header(CONTENT_TYPE_KEY, CONTENT_TYPE_VALUE)
-                 .when()
+                        .when()
                         .delete(BASE_API_URL + url)
-                .then()
+                        .then()
                         .log().all()
                         .extract().response();
     }

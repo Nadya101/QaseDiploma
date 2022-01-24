@@ -7,18 +7,15 @@ import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import tests.utils.Retry;
-import ui.constants.IConstants;
-import utils.PropertyReader;
 
-public class LoginTest extends BaseTest implements IConstants {
+public class LoginTest extends BaseTest {
 
     @Description("Test checks if the user can log in with valid data")
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Login user with valid data", groups = {"login", "smoke"}, retryAnalyzer = Retry.class)
     public void loginUserWithValidDataTest() {
         String url = loginPage.openLoginPage()
-                .login(System.getProperty("EMAIL", PropertyReader.getProperty("EMAIL")),
-                        System.getProperty("PASSWORD", PropertyReader.getProperty("PASSWORD")))
+                .login(email, password)
                 .getUrl();
         Assert.assertEquals(url, "https://app.qase.io/projects");
     }
