@@ -10,7 +10,7 @@ public class SignOutTest extends BaseTest {
     @Test(description = "Sigh out user", groups = {"smoke"})
     public void signOutUserTest() {
         loginPage.openLoginPage()
-                .login(email, password);
+                .login(EMAIL, PASSWORD);
         String url = menuModal.openMenu()
                 .clickOnSignOutLink()
                 .getUrl();

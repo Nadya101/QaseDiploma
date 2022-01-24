@@ -16,7 +16,7 @@ public class TestCaseTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Create new test case", groups = {"critical"})
     public void createNewTestCaseMandatoryFieldOnlyTest() {
-        testCaseSteps.createTestCase(email, password, "ComeMai", "Demo test case");
+        testCaseSteps.createTestCase(EMAIL, PASSWORD, "ComeMai", "Demo test case");
         Assert.assertEquals(projectPage.getMessage(), "Test case was created successfully!");
     }
 
@@ -34,7 +34,7 @@ public class TestCaseTest extends BaseTest {
         Assert.assertTrue(status);
         Assert.assertTrue(id > 0);
 
-        testCaseSteps.deleteTestCase(email, password, "TMS", "Delete test");
+        testCaseSteps.deleteTestCase(EMAIL, PASSWORD, "TMS", "Delete test");
         Assert.assertEquals(projectPage.getMessage(), "Test case [" + testCaseSteps.printCode() + "] was successfully deleted");
     }
 
@@ -52,7 +52,7 @@ public class TestCaseTest extends BaseTest {
         Assert.assertTrue(status);
         Assert.assertTrue(id > 0);
 
-        testCaseSteps.updateTestCase(email, password, "TMS", "Update test", "Edited test");
+        testCaseSteps.updateTestCase(EMAIL, PASSWORD, "TMS", "Update test", "Edited test");
         Assert.assertEquals(projectPage.getMessage(),  "Test case was edited successfully!");
 
         Response responseDelete = new TestCaseAdapter().deleteCase("TMS3543", id);

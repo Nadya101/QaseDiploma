@@ -18,7 +18,7 @@ public class ProjectTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Create new project", groups = {"critical"}, retryAnalyzer = Retry.class)
     public void createNewProjectTest() {
-        projectSteps.createNewProject(email, password, "TMS", "This is auto project", false);
+        projectSteps.createNewProject(EMAIL, PASSWORD, "TMS", "This is auto project", false);
         Assert.assertEquals(projectPage.getMessage(), "Project \"TMS\" was created successfully!");
     }
 
@@ -34,7 +34,7 @@ public class ProjectTest extends BaseTest {
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(response.path("result.code"), "NB101");
 
-        projectSteps.deleteProject(email, password, "Qase project");
+        projectSteps.deleteProject(EMAIL, PASSWORD, "Qase project");
         Assert.assertFalse(projectsPage.isProjectPresent("Qase project"));
     }
 

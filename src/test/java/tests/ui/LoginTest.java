@@ -15,7 +15,7 @@ public class LoginTest extends BaseTest {
     @Test(description = "Login user with valid data", groups = {"login", "smoke"}, retryAnalyzer = Retry.class)
     public void loginUserWithValidDataTest() {
         String url = loginPage.openLoginPage()
-                .login(email, password)
+                .login(EMAIL, PASSWORD)
                 .getUrl();
         Assert.assertEquals(url, "https://app.qase.io/projects");
     }

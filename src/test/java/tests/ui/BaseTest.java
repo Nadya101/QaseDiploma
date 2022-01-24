@@ -29,8 +29,8 @@ public class BaseTest implements IConstants {
     ProjectPage projectPage;
     MenuModal menuModal;
 
-    protected static final String email = System.getProperty("EMAIL", PropertyReader.getProperty("EMAIL"));
-    protected static final String password = System.getProperty("PASSWORD", PropertyReader.getProperty("PASSWORD"));
+    protected static final String EMAIL = System.getProperty("EMAIL", PropertyReader.getProperty("EMAIL"));
+    protected static final String PASSWORD = System.getProperty("PASSWORD", PropertyReader.getProperty("PASSWORD"));
 
     @BeforeMethod
     public void initTest(ITestContext context) {
