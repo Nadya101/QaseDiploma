@@ -17,7 +17,6 @@ public class BaseAdapter implements IConstants {
 
     Gson converter = new Gson();
 
-
     @Step("Send GET request to URL: '{url}'")
     public Response get(String url) {
         return
