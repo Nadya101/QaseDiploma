@@ -10,7 +10,6 @@ import static io.restassured.RestAssured.given;
 
 public class BaseAdapter implements IConstants {
 
-    public final String API_URL = "https://api.qase.io/v1";
     private static final String TOKEN_KEY = "Token";
     private static final String TOKEN_VALUE = System.getProperty("TOKEN", PropertyReader.getProperty("TOKEN"));
     private static final String CONTENT_TYPE_KEY = "Content-Type";
