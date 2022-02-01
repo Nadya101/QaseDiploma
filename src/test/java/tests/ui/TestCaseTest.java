@@ -21,7 +21,7 @@ public class TestCaseTest extends BaseTest {
     }
 
     @Description("Test checks if the user can delete a test case")
-    @Test(description = "Create test case via API and delete it via UI", groups = {"smoke"}, retryAnalyzer = Retry.class)
+    @Test(description = "Create test case via API and delete it via UI", groups = {"smoke"})
     public void deleteTestCaseTest() {
         TestCase testCase = TestCase.builder()
                 .title("Delete test")

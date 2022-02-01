@@ -17,7 +17,6 @@ public class ProjectPage extends BasePage {
             "'style_header')]//*[contains(@class, 'trash')]";
     public final String SUITE_PENCIL_ICON_XPATH = "//*[contains(text(), '%s')]/ancestor::*[contains(@class," +
             " 'style_header')]//*[contains(@class, 'pencil')]";
-    public final String HAND_ICON_XPATH = "//*[@title= 'Not automated']";
 
     @FindBy(id = "create-case-button")
     private WebElement createCaseButton;
@@ -25,14 +24,16 @@ public class ProjectPage extends BasePage {
     private WebElement deleteSuiteButton;
     @FindBy(xpath = "//*[@class='alert-message']")
     private WebElement alertMessage;
-    @FindBy(xpath = "//*[@title='Delete case']")
+    @FindBy(xpath = "//*[contains(@class, 'style_caseActions')]//*[contains(text(), 'Delete')]")
     private WebElement deleteCaseButton;
     @FindBy(xpath = "//*[contains(@class, 'style_code')]")
     private WebElement previewCode;
     @FindBy(xpath = "//*[contains(@title, 'Test cases without suite')]")
     private WebElement casesList;
-    @FindBy(xpath = "//*[@title='Edit case']")
+    @FindBy(xpath = "//*[contains(text(),'Edit')]")
     private WebElement editCaseButton;
+    @FindBy(xpath = "//*[@title= 'Not automated']")
+    private WebElement handIcon;
 
     public ProjectPage(WebDriver driver) {
         super(driver);
@@ -56,7 +57,7 @@ public class ProjectPage extends BasePage {
 
     @Step("Select '{caseName}' test case")
     public ProjectPage selectTestCaseByName(String caseName) {
-        waitForElementLocated(driver, By.xpath(HAND_ICON_XPATH), 5);
+        waitForElementLocated(driver, handIcon, 5);
         log.info(String.format("Select '%s' test case", caseName));
         driver.findElement(By.xpath(String.format(TEST_CASE_NAME_XPATH, caseName))).click();
         return this;
@@ -70,7 +71,7 @@ public class ProjectPage extends BasePage {
 
     @Step("Click on 'Delete' button on Project page")
     public DeleteTestCaseModal clickOnDeleteCaseButton() {
-        waitForElementLocated(driver, deleteCaseButton, 10);
+        waitForElementLocated(driver, deleteCaseButton, 5);
         log.info("Click on 'Delete case' button");
         deleteCaseButton.click();
         return new DeleteTestCaseModal(driver);

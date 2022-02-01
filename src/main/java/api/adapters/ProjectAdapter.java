@@ -26,7 +26,6 @@ public class ProjectAdapter extends BaseAdapter {
     public Response deleteProjectByCode(String projectCode){
         log.info(String.format("Delete '%s' project", projectCode));
         return new BaseAdapter().delete(String.format(SPECIFIC_PROJECT_URL, projectCode));
-
     }
 
 }
